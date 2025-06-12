@@ -1,0 +1,33 @@
+{
+    "version": 2,
+    "inquiries": [
+        {
+            "id": "E6JVtGIZPOQsc5zWEbyMp",
+            "query": "--1 View All Columns\nSELECT * FROM house_prices_data LIMIT 10;\n\n--2 Null Count and Percentage\nSELECT \n    COUNT(*) AS total_rows,\n    SUM(CASE WHEN Price IS NULL THEN 1 ELSE 0 END) AS null_count,\n    ROUND(100.0 * SUM(CASE WHEN Price IS NULL THEN 1 ELSE 0 END)/COUNT(*), 2) AS null_percent\nFROM house_prices_data;\n\n--3 Average, Min, Max House Prices\nSELECT \n    AVG(Price) AS avg_price,\n    MIN(Price) AS min_price,\n    MAX(Price) AS max_price\nFROM house_prices_data;\n\n--4 Price by Property Type\nSELECT \n    property_type,\n    COUNT(*) AS total_listings,\n    ROUND(AVG(Price), 2) AS avg_price\nFROM house_prices_data\nGROUP BY property_type\nORDER BY avg_price DESC;\n\n--5 Top 5 Most Expensive Properties\nSELECT * \nFROM house_prices_data\nORDER BY Price DESC\nLIMIT 5;\n\n\n--6 Yearly Sales Summary\nSELECT \n    strftime('%Y', Date) AS Year,\n    COUNT(*) AS total_sales,\n    ROUND(AVG(Price), 2) AS avg_price\nFROM house_prices_data\nWHERE Date IS NOT NULL\nGROUP BY Year\nORDER BY Year;\n\n",
+            "viewType": "chart",
+            "viewOptions": {
+                "data": [],
+                "layout": {
+                    "autosize": true,
+                    "xaxis": {
+                        "range": [
+                            -1,
+                            6
+                        ],
+                        "autorange": true
+                    },
+                    "yaxis": {
+                        "range": [
+                            -1,
+                            4
+                        ],
+                        "autorange": true
+                    }
+                },
+                "frames": []
+            },
+            "name": "house_price_sqlliteviz",
+            "createdAt": "2025-06-12T13:46:14.083Z"
+        }
+    ]
+}
